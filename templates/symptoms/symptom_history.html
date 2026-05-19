@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Symptom History{% endblock %}
+
+{% block content %}
+<h2>Symptom Check History</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Symptoms</th>
+            <th>Predicted Condition</th>
+            <th>Recommended Specialist</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for symptom in symptoms %}
+        <tr>
+            <td>{{ symptom.symptoms }}</td>
+            <td>{{ symptom.predicted_condition }}</td>
+            <td>{{ symptom.recommended_specialist }}</td>
+            <td>{{ symptom.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

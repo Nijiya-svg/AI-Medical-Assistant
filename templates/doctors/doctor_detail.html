@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Doctor Details{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2>{{ doctor.user.first_name }} {{ doctor.user.last_name }}</h2>
+        <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+        <p><strong>Experience:</strong> {{ doctor.experience_years }} years</p>
+        <p><strong>Available Timings:</strong> {{ doctor.available_timings }}</p>
+        <p><strong>Consultation Fee:</strong> ₹{{ doctor.consultation_fee }}</p>
+        <p><strong>Bio:</strong> {{ doctor.bio }}</p>
+        <a href="{% url 'book_appointment' doctor.pk %}" class="btn btn-success">Book Appointment</a>
+    </div>
+</div>
+{% endblock %}

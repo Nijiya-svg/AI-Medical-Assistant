@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block title %}Doctor Dashboard{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block content %}
+<div class="card doctor-hero-card rounded-4 shadow-sm mb-4 p-4">
+    <div class="row align-items-center gy-3">
+        <div class="col-md-8">
+            <p class="text-primary mb-2">Welcome back, Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}!</p>
+            <h1 class="card-title mb-2">Doctor Dashboard</h1>
+            <p class="text-muted mb-0">Manage your practice, view upcoming patients, and stay on top of notifications.</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <p class="mb-1"><strong>Specialization</strong></p>
+            <p class="mb-1 text-muted">{{ doctor.specialization }}</p>
+            <p class="mb-1"><strong>Experience</strong></p>
+            <p class="text-muted">{{ doctor.experience_years }} years</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-sm-6 col-xl-3">
+        <div class="card doctor-stat-card rounded-4 p-4 shadow-sm">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div>
+                    <p class="text-uppercase text-muted mb-1 small">Upcoming Appointments</p>
+                    <h3 class="mb-0">{{ appointment_counts.upcoming }}</h3>
+                </div>
+                <div class="icon-box bg-primary text-white rounded-3 p-2">
+                    <i class="bi bi-calendar-check fs-4"></i>
+                </div>
+            </div>
+            <p class="text-muted mb-0">Confirmed and pending visits</p>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card doctor-stat-card rounded-4 p-4 shadow-sm">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div>
+                    <p class="text-uppercase text-muted mb-1 small">Completed</p>
+                    <h3 class="mb-0">{{ appointment_counts.completed }}</h3>
+                </div>
+                <div class="icon-box bg-success text-white rounded-3 p-2">
+                    <i class="bi bi-check2-circle fs-4"></i>
+                </div>
+            </div>
+            <p class="text-muted mb-0">Appointments closed this week</p>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card doctor-stat-card rounded-4 p-4 shadow-sm">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div>
+                    <p class="text-uppercase text-muted mb-1 small">Pending Requests</p>
+                    <h3 class="mb-0">{{ appointment_counts.pending }}</h3>
+                </div>
+                <div class="icon-box bg-warning text-white rounded-3 p-2">
+                    <i class="bi bi-hourglass-split fs-4"></i>
+                </div>
+            </div>
+            <p class="text-muted mb-0">New patient requests</p>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card doctor-stat-card rounded-4 p-4 shadow-sm">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div>
+                    <p class="text-uppercase text-muted mb-1 small">Notifications</p>
+                    <h3 class="mb-0">{{ notifications|length }}</h3>
+                </div>
+                <div class="icon-box bg-info text-white rounded-3 p-2">
+                    <i class="bi bi-bell fs-4"></i>
+                </div>
+            </div>
+            <p class="text-muted mb-0">Recent alerts awaiting review</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card rounded-4 shadow-sm overflow-hidden">
+            <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
+                <div>
+                    <h5 class="mb-0">Upcoming Appointments</h5>
+                    <small class="text-muted">Manage patient visits and update statuses</small>
+                </div>
+                <a href="{% url 'doctor_list' %}" class="btn btn-outline-primary btn-sm">View all doctors</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table doctor-table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if appointments %}
+                            {% for appointment in appointments %}
+                                <tr>
+                                    <td>
+                                        <div class="fw-semibold">{{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</div>
+                                        <div class="text-muted small">{{ appointment.patient.email }}</div>
+                                    </td>
+                                    <td>{{ appointment.date|date:'M d, Y' }}</td>
+                                    <td>{{ appointment.time|time:'g:i a' }}</td>
+                                    <td>
+                                        {% if appointment.status == 'completed' %}
+                                            <span class="badge bg-success badge-status">Completed</span>
+                                        {% elif appointment.status == 'pending' %}
+                                            <span class="badge bg-warning text-dark badge-status">Pending</span>
+                                        {% elif appointment.status == 'confirmed' %}
+                                            <span class="badge bg-primary badge-status">Confirmed</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary badge-status">{{ appointment.status|capfirst }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-end">
+                                        <a href="#" class="btn btn-outline-secondary btn-sm me-2">Details</a>
+                                        <a href="#" class="btn btn-primary btn-sm">Message</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">No upcoming appointments currently scheduled.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card notification-card rounded-4 shadow-sm h-100">
+            <div class="card-header bg-white border-0">
+                <h5 class="mb-0">Recent Notifications</h5>
+            </div>
+            <div class="card-body p-0">
+                {% if notifications %}
+                    <div class="list-group list-group-flush">
+                        {% for notification in notifications %}
+                            <div class="list-group-item notification-item py-3 px-4">
+                                <div class="d-flex align-items-start justify-content-between gap-3">
+                                    <div>
+                                        <div class="fw-semibold">{{ notification.notification_type|title }}</div>
+                                        <div class="text-muted small">{{ notification.message }}</div>
+                                    </div>
+                                    <div class="text-end small text-muted">{{ notification.sent_at|date:'M d' }}</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="p-4 text-center text-muted">No notifications yet. You’ll see new alerts here soon.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

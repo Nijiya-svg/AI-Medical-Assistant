@@ -1,0 +1,110 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Login - AI Medical Assistant{% endblock %}
+
+{% block extra_head %}
+<style>
+.login-page {
+    background: linear-gradient(135deg, #0d6efd 0%, #60a5fa 100%);
+    min-height: calc(100vh - 80px);
+}
+.login-page .card {
+    border-radius: 24px;
+    border: none;
+}
+.login-page .card-body {
+    padding: 2.5rem;
+}
+.login-page .form-label {
+    font-weight: 600;
+}
+.login-page input {
+    width: 100%;
+    padding: 1rem 1rem;
+    border-radius: 14px;
+    border: 1px solid #d1d5db;
+    background: rgba(248, 250, 252, 0.95);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.login-page input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+.login-page .btn-primary {
+    border-radius: 999px;
+    padding: 0.95rem 1.2rem;
+    box-shadow: 0 16px 28px rgba(13, 110, 253, 0.18);
+}
+.login-page .login-header-icon {
+    width: 80px;
+    height: 80px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    margin-bottom: 1rem;
+}
+.login-page .text-muted {
+    color: #6c757d !important;
+}
+.login-page a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+.login-page a:hover {
+    color: #e0f2fe;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-page">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <div class="login-header-icon mx-auto">
+                                <i class="fas fa-user-lock fa-2x"></i>
+                            </div>
+                            <h2 class="fw-bold mb-2">Welcome Back</h2>
+                            <p class="text-muted mb-0">Log in to manage appointments, chat with your assistant, and track your health.</p>
+                        </div>
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    {{ form.non_field_errors }}
+                                </div>
+                            {% endif %}
+                            <div class="mb-3">
+                                <label for="id_username" class="form-label">Username</label>
+                                {{ form.username }}
+                                {% for error in form.username.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="mb-4">
+                                <label for="id_password" class="form-label">Password</label>
+                                {{ form.password }}
+                                {% for error in form.password.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center bg-transparent border-top-0 pb-4">
+                        <p class="mb-0">Don’t have an account? <a href="{% url 'register' %}">Register here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

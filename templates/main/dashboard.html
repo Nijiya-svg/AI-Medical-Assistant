@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-hero p-4 mb-4 rounded-4 shadow-sm bg-white">
+    <div class="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3">
+        <div>
+            <p class="text-primary mb-1">Welcome back, {{ user.first_name|default:user.username }}!</p>
+            <h2 class="mb-2">Dashboard</h2>
+            <p class="text-muted mb-0">Quickly review upcoming appointments, recent symptom checks, and important alerts.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="{% url 'appointment_list' %}" class="btn btn-primary">Appointments</a>
+            <a href="{% url 'symptom_history' %}" class="btn btn-outline-primary">Symptom History</a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="stat-card rounded-4 p-4 shadow-sm bg-white">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="stat-icon bg-primary text-white"><i class="fas fa-calendar-check"></i></div>
+                <div>
+                    <div class="stat-title text-uppercase text-muted">Appointments</div>
+                    <div class="stat-value">{{ appointments|length }}</div>
+                </div>
+            </div>
+            <p class="text-muted mb-0">Scheduled appointments</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card rounded-4 p-4 shadow-sm bg-white">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="stat-icon bg-success text-white"><i class="fas fa-notes-medical"></i></div>
+                <div>
+                    <div class="stat-title text-uppercase text-muted">Symptom checks</div>
+                    <div class="stat-value">{{ symptoms|length }}</div>
+                </div>
+            </div>
+            <p class="text-muted mb-0">Recent checks recorded</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card rounded-4 p-4 shadow-sm bg-white">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="stat-icon bg-warning text-white"><i class="fas fa-bell"></i></div>
+                <div>
+                    <div class="stat-title text-uppercase text-muted">Notifications</div>
+                    <div class="stat-value">{{ notifications|length }}</div>
+                </div>
+            </div>
+            <p class="text-muted mb-0">Unread alerts</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card rounded-4 shadow-sm h-100 border-0">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Next Steps</h5>
+                <p class="text-muted">Use these links to manage your health faster.</p>
+                <div class="d-grid gap-2 mt-4">
+                    <a href="{% url 'appointment_list' %}" class="btn btn-primary btn-lg">View Appointments</a>
+                    <a href="{% url 'symptom_history' %}" class="btn btn-outline-primary btn-lg">Review Symptom History</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="card rounded-4 shadow-sm h-100 border-0">
+            <div class="card-header bg-white border-0">
+                <h5 class="mb-0">Upcoming Appointments</h5>
+            </div>
+            <div class="card-body">
+                {% if appointments %}
+                    <div class="list-group list-group-flush">
+                        {% for appointment in appointments %}
+                            <div class="list-group-item py-3">
+                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                    <div>
+                                        <strong>{{ appointment.doctor.user.first_name }} {{ appointment.doctor.user.last_name }}</strong>
+                                        <div class="small text-muted">{{ appointment.doctor.specialization|default:'General' }}</div>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">{{ appointment.date }} {{ appointment.time }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted mb-0">No upcoming appointments yet. Book one to get started.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-1">
+    <div class="col-lg-6">
+        <div class="card rounded-4 shadow-sm h-100 border-0">
+            <div class="card-header bg-white border-0">
+                <h5 class="mb-0">Recent Symptom Checks</h5>
+            </div>
+            <div class="card-body">
+                {% if symptoms %}
+                    <div class="list-group list-group-flush">
+                        {% for symptom in symptoms %}
+                            <div class="list-group-item py-3">
+                                <div class="d-flex justify-content-between align-items-start gap-3">
+                                    <div>
+                                        <strong>{{ symptom.predicted_condition }}</strong>
+                                        <div class="small text-muted">{{ symptom.created_at|date:'M d, Y H:i' }}</div>
+                                    </div>
+                                    <span class="badge bg-secondary rounded-pill">Review</span>
+                                </div>
+                                <div class="small text-muted mt-2">Recommended: {{ symptom.recommended_specialist|default:'No specialist suggested yet.' }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted mb-0">You haven’t checked symptoms yet. Use the symptom checker to record your health concerns.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card rounded-4 shadow-sm h-100 border-0">
+            <div class="card-header bg-white border-0">
+                <h5 class="mb-0">Notifications</h5>
+            </div>
+            <div class="card-body">
+                {% if notifications %}
+                    <ul class="list-unstyled mb-0">
+                        {% for notification in notifications %}
+                            <li class="py-3 border-bottom">
+                                <div class="d-flex justify-content-between align-items-start gap-3">
+                                    <div>
+                                        <strong>{{ notification.notification_type|title }}</strong>
+                                        <div class="small text-muted">{{ notification.message }}</div>
+                                    </div>
+                                    <span class="small text-muted">{{ notification.sent_at|date:'M d, Y' }}</span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-muted mb-0">No new notifications yet. We’ll let you know when something needs your attention.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

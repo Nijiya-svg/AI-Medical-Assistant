@@ -1,0 +1,262 @@
+/* Custom styles for AI Medical Assistant */
+
+html {
+    font-size: 14px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #eef5ff;
+    font-size: 0.95rem;
+}
+
+h1 {
+    font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+}
+
+h2 {
+    font-size: clamp(1.4rem, 2vw, 2rem);
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+h4, h5, h6 {
+    font-size: 1rem;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.home-hero {
+    background: #ffffff;
+    border-radius: 2rem;
+    color: #111;
+}
+
+.home-hero h1 {
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    line-height: 1.05;
+    color: #111;
+}
+
+.home-hero .lead {
+    font-size: 1.1rem;
+    max-width: 640px;
+    color: #5f6d7a;
+}
+
+.hero-panel {
+    min-height: 320px;
+}
+
+.icon-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-card {
+    background: #fff;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.feature-card h4 {
+    margin-top: 1rem;
+}
+
+.feature-card p {
+    color: #6c757d;
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-outline-light {
+    color: #fff;
+    border-color: rgba(255,255,255,0.85);
+}
+
+.btn-outline-light:hover {
+    color: #fff;
+    background-color: rgba(255,255,255,0.15);
+    border-color: #fff;
+}
+
+#chat-window {
+    background-color: #f8f9fa;
+    border-radius: 1rem;
+    padding: 14px;
+    min-height: 380px;
+    max-height: 460px;
+    overflow-y: auto;
+    border: 1px solid #dbe5f5;
+    background: #ffffff;
+}
+
+.chat-message {
+    display: flex;
+    margin-bottom: 0.75rem;
+}
+
+.chat-message.chat-user {
+    justify-content: flex-end;
+}
+
+.chat-message.chat-ai {
+    justify-content: flex-start;
+}
+
+.chat-bubble {
+    max-width: 84%;
+    padding: 14px 18px;
+    border-radius: 18px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    line-height: 1.6;
+}
+
+.chat-user .chat-bubble {
+    background-color: #0d6efd;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-ai .chat-bubble {
+    background-color: #eef4ff;
+    color: #0f172a;
+    border-bottom-left-radius: 4px;
+}
+
+.dashboard-hero {
+    border: 1px solid rgba(0,123,255,0.15);
+    background-color: #ffffff;
+}
+
+.doctor-hero-card {
+    background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(56,189,248,0.08));
+    color: #0f172a;
+}
+
+.doctor-hero-card .card-title {
+    color: #0f172a;
+}
+
+.doctor-stat-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: none;
+}
+
+.doctor-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+}
+
+.doctor-table thead th {
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.doctor-table tbody tr:hover {
+    background-color: #f8fbff;
+}
+
+.notification-card {
+    border: 1px solid #e5e7eb;
+}
+
+.notification-item {
+    border-bottom: 1px solid #eef2ff;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.badge-status {
+    min-width: 92px;
+    display: inline-flex;
+    justify-content: center;
+}
+
+@media (max-width: 767px) {
+    .doctor-hero-card .d-flex.align-items-center {
+        flex-wrap: wrap;
+    }
+}
+
+.dashboard-hero h2 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: 1px solid rgba(112, 123, 255, 0.12);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.stat-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-value {
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin-top: 0.2rem;
+}
+
+.card-header {
+    background-color: #ffffff !important;
+}
+
+.list-group-item {
+    background-color: transparent;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card rounded-4 shadow-sm border-0 mb-4">
+            <div class="card-header bg-white border-0">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h2 class="card-title mb-1">Your Profile</h2>
+                        <p class="text-muted mb-0">Update your personal and medical information</p>
+                    </div>
+                    <div class="icon-box bg-primary text-white rounded-circle p-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-person-circle fs-4"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" class="needs-validation">
+                    {% csrf_token %}
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.age.id_for_label }}" class="form-label fw-semibold">Age</label>
+                                {{ form.age }}
+                                {% if form.age.errors %}
+                                    <div class="invalid-feedback d-block">{{ form.age.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.date_of_birth.id_for_label }}" class="form-label fw-semibold">Date of Birth</label>
+                                {{ form.date_of_birth }}
+                                {% if form.date_of_birth.errors %}
+                                    <div class="invalid-feedback d-block">{{ form.date_of_birth.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="{{ form.contact_info.id_for_label }}" class="form-label fw-semibold">Contact Information</label>
+                        {{ form.contact_info }}
+                        <small class="form-text text-muted">Phone number or email for appointments</small>
+                        {% if form.contact_info.errors %}
+                            <div class="invalid-feedback d-block">{{ form.contact_info.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="{{ form.medical_history.id_for_label }}" class="form-label fw-semibold">Medical History</label>
+                        {{ form.medical_history }}
+                        <small class="form-text text-muted">Include any past illnesses, medications, or allergies</small>
+                        {% if form.medical_history.errors %}
+                            <div class="invalid-feedback d-block">{{ form.medical_history.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="{{ form.address.id_for_label }}" class="form-label fw-semibold">Address</label>
+                        {{ form.address }}
+                        {% if form.address.errors %}
+                            <div class="invalid-feedback d-block">{{ form.address.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex gap-2 mt-5">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-check-circle me-2"></i>Save Changes
+                        </button>
+                        <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {% for message in messages %}
+                    <strong>Success!</strong> {{ message }}
+                    {% if not forloop.last %}<br>{% endif %}
+                {% endfor %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    #id_age, #id_contact_info, #id_date_of_birth, #id_medical_history, #id_address {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    #id_age:focus, #id_contact_info:focus, #id_date_of_birth:focus, #id_medical_history:focus, #id_address:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .form-label {
+        color: #0f172a;
+        margin-bottom: 0.5rem;
+    }
+
+    #id_medical_history, #id_address {
+        resize: vertical;
+        min-height: 120px;
+    }
+</style>
+{% endblock %}

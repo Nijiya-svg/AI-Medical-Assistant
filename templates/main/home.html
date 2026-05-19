@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - AI Medical Assistant{% endblock %}
+
+{% block content %}
+<section class="home-hero py-5 bg-white shadow-sm rounded-4">
+    <div class="row align-items-center">
+        <div class="col-lg-7">
+            <div class="hero-copy text-dark mb-4">
+                <span class="badge rounded-pill bg-primary text-white mb-3">Smart Healthcare</span>
+                <h1>Welcome to AI Medical Appointment Assistant</h1>
+                <p class="lead text-muted">Your intelligent healthcare companion for booking appointments, checking symptoms, and getting medical advice — fast, easy, and reliable.</p>
+                <div class="d-flex flex-column flex-sm-row gap-2">
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Get Started</a>
+                    <a href="{% url 'symptom_checker' %}" class="btn btn-outline-primary btn-lg">Check Symptoms</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="hero-panel p-4 rounded-4 shadow-lg bg-white">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="icon-circle bg-primary text-white me-3"><i class="fas fa-stethoscope fa-lg"></i></div>
+                    <div>
+                        <h5 class="mb-0">24/7 AI Support</h5>
+                        <p class="mb-0 text-muted">Get instant medical advice anytime.</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-4">
+                    <div class="icon-circle bg-success text-white me-3"><i class="fas fa-calendar-check fa-lg"></i></div>
+                    <div>
+                        <h5 class="mb-0">Easy Booking</h5>
+                        <p class="mb-0 text-muted">Schedule doctor appointments in just a few clicks.</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="icon-circle bg-info text-white me-3"><i class="fas fa-heartbeat fa-lg"></i></div>
+                    <div>
+                        <h5 class="mb-0">Personalized Care</h5>
+                        <p class="mb-0 text-muted">Tailored recommendations for your health needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features-section py-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card p-4 rounded-4 shadow-sm h-100 text-center">
+                <div class="feature-icon mb-3 bg-primary text-white"><i class="fas fa-notes-medical fa-2x"></i></div>
+                <h4>Symptom Checker</h4>
+                <p class="text-muted">Describe your symptoms and receive guidance on next steps.</p>
+                <a href="{% url 'symptom_checker' %}" class="stretched-link text-decoration-none">Explore</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card p-4 rounded-4 shadow-sm h-100 text-center">
+                <div class="feature-icon mb-3 bg-success text-white"><i class="fas fa-user-md fa-2x"></i></div>
+                <h4>Find Doctors</h4>
+                <p class="text-muted">Browse specialists near you and book the right care provider.</p>
+                <a href="{% url 'doctor_list' %}" class="stretched-link text-decoration-none">Browse</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card p-4 rounded-4 shadow-sm h-100 text-center">
+                <div class="feature-icon mb-3 bg-warning text-white"><i class="fas fa-comments fa-2x"></i></div>
+                <h4>AI Chatbot</h4>
+                <p class="text-muted">Ask health questions and receive instant AI-powered responses.</p>
+                <a href="{% url 'chatbot' %}" class="stretched-link text-decoration-none">Chat Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
