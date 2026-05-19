@@ -87,13 +87,13 @@ The platform provides a modern hospital-style interface where patients can book 
 
 ## Frontend
 - HTML5
-- CSS3
+- CSS
 - Bootstrap 5
 - JavaScript
 
 ## Database
-- SQLite (Default)
-- MySQL Supported
+- SQLite 
+
 
 ## Deployment
 - Render
